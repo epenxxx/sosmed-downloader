@@ -4,8 +4,13 @@ services:
   backend:
     build: ./backend
     restart: always
-    # Backend berjalan di jaringan internal Docker, tidak perlu expose port ke luar
-
+    # Beri akses ke kartu grafis AMD
+    devices:
+      - /dev/dri:/dev/dri
+    group_add:
+      - video
+      - render
+      
   frontend:
     image: nginx:alpine
     ports:
