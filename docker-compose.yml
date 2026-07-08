@@ -7,10 +7,7 @@ services:
     # Beri akses ke kartu grafis AMD
     devices:
       - /dev/dri:/dev/dri
-    group_add:
-      - video
-      - render
-      
+
   frontend:
     image: nginx:alpine
     ports:

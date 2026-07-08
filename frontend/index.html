@@ -3,85 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unduh Video Sosmed Tanpa Watermark</title>
+    <title>YouTube Video & MP3 Downloader</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { 
-            darkMode: 'class', 
-            theme: { 
-                extend: { colors: { darkBg: '#0f172a', cardBg: '#1e293b' } } 
-            } 
-        }
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { darkBg: '#0f172a', cardBg: '#1e293b' } } } }
     </script>
 </head>
 <body class="bg-darkBg text-gray-200 min-h-screen flex flex-col font-sans">
-    <!-- Header -->
     <header class="border-b border-gray-700 bg-cardBg py-4 text-center">
-        <h1 class="text-2xl font-extrabold tracking-tight">Sosmed<span class="text-blue-500">Downloader</span></h1>
+        <h1 class="text-2xl font-extrabold tracking-tight text-white">YT<span class="text-red-500">Downloader</span></h1>
     </header>
 
-    <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10">
-        <!-- Form Input -->
+    <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-8">
+        
+        <!-- SLOT IKLAN HEADER -->
+        <div class="w-full h-24 mb-6 flex items-center justify-center bg-gray-800/50 border border-dashed border-gray-600 rounded-lg text-gray-500 text-sm">
+            [ Slot Iklan AdSense Header - 728x90 ]
+        </div>
+
         <div class="bg-cardBg p-8 rounded-2xl shadow-xl border border-gray-700 text-center">
-            <h2 class="text-3xl font-bold text-white mb-3">Unduh dari Mana Saja</h2>
-            <p class="text-gray-400 mb-8">Tempel link YouTube, TikTok, IG, FB, atau X di bawah ini.</p>
+            <h2 class="text-3xl font-bold text-white mb-3">Unduh Video & Audio YouTube</h2>
+            <p class="text-gray-400 mb-6">Tempel link YouTube (contoh: https://youtu.be/...) di bawah ini.</p>
             
             <div class="flex flex-col md:flex-row gap-3">
-                <input type="url" id="urlInput" placeholder="https://..." class="flex-1 px-4 py-3 rounded-lg bg-gray-900 border border-gray-600 focus:border-blue-500 text-white outline-none">
-                <button onclick="prosesVideo()" id="btnDownload" class="px-8 py-3 bg-blue-600 hover:bg-blue-500 font-bold rounded-lg transition text-white">Dapatkan Video</button>
+                <input type="url" id="urlInput" placeholder="https://youtube.com/watch?v=..." class="flex-1 px-4 py-3 rounded-lg bg-gray-900 border border-gray-600 focus:border-red-500 text-white outline-none transition">
+                <button onclick="prosesVideo()" id="btnDownload" class="px-8 py-3 bg-red-600 hover:bg-red-500 font-bold rounded-lg transition text-white shadow-lg shadow-red-500/30">Cari Video</button>
             </div>
 
-            <!-- Hasil Unduhan -->
-            <div id="hasil" class="hidden mt-8 p-4 bg-gray-800 rounded-xl border border-gray-700 flex flex-col md:flex-row gap-4 items-center text-left">
-                <img id="thumb" class="w-full md:w-40 h-28 object-cover rounded shadow" alt="Thumbnail">
-                <div class="flex-1">
-                    <h3 id="judul" class="text-white font-semibold line-clamp-2 mb-3">Judul</h3>
-                    <a id="linkAsli" target="_blank" href="#" class="inline-block px-4 py-2 bg-green-600 hover:bg-green-500 text-white font-bold rounded shadow w-full text-center">Download Video</a>
+            <!-- SLOT IKLAN TENGAH -->
+            <div class="w-full h-[250px] my-8 flex items-center justify-center bg-gray-800/50 border border-dashed border-gray-600 rounded-lg text-gray-500 text-sm">
+                [ Slot Iklan AdSense Kotak - 300x250 ]
+            </div>
+
+            <!-- Area Hasil -->
+            <div id="hasil" class="hidden p-5 bg-gray-800 rounded-xl border border-gray-700 flex flex-col md:flex-row gap-5 text-left items-start">
+                <img id="thumb" class="w-full md:w-1/2 rounded shadow-lg object-cover aspect-video" alt="Thumbnail">
+                <div class="flex-1 w-full">
+                    <h3 id="judul" class="text-white font-bold line-clamp-3 mb-4 leading-snug">Judul YouTube</h3>
+                    <p class="text-xs text-yellow-400 mb-2 font-mono" id="statusWait"></p>
+                    
+                    <div id="buttonContainer" class="flex flex-col gap-2 w-full">
+                        <!-- Tombol masuk di sini -->
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Artikel / Panduan SEO -->
-        <div class="mt-12 p-6 bg-cardBg rounded-xl border border-gray-700">
-            <h2 class="text-xl font-bold mb-3 text-white">Cara Menggunakan</h2>
-            <ol class="list-decimal pl-5 text-gray-400 space-y-2">
-                <li>Salin link video dari aplikasi (TikTok/IG/YouTube).</li>
-                <li>Tempelkan ke dalam kotak di atas.</li>
-                <li>Klik <strong>Dapatkan Video</strong> dan tunggu beberapa detik.</li>
-                <li>Klik tombol hijau untuk menyimpan video ke perangkat Anda.</li>
-            </ol>
+
+        <!-- SLOT IKLAN FOOTER -->
+        <div class="w-full h-24 mt-8 flex items-center justify-center bg-gray-800/50 border border-dashed border-gray-600 rounded-lg text-gray-500 text-sm">
+            [ Slot Iklan AdSense Footer ]
         </div>
     </main>
 
     <script>
         async function prosesVideo() {
             const url = document.getElementById('urlInput').value;
-            if(!url) return alert("Masukkan URL video terlebih dahulu!");
+            if(!url) return alert("Masukkan URL YouTube!");
             
             const btn = document.getElementById('btnDownload');
-            btn.innerText = "Memproses...";
-            btn.classList.add("opacity-50");
+            btn.innerText = "Mencari...";
+            btn.classList.add("opacity-50", "pointer-events-none");
             document.getElementById('hasil').classList.add("hidden");
+            document.getElementById('statusWait').innerText = "";
+            const btnContainer = document.getElementById('buttonContainer');
+            btnContainer.innerHTML = ''; 
 
             try {
-                // Fetch diarahkan ke /api/extract sesuai konfigurasi Nginx Reverse Proxy di Docker
                 const res = await fetch(`/api/extract?url=${encodeURIComponent(url)}`);
                 const data = await res.json();
                 
-                if(data.success) {
+                if(res.ok && data.success) {
                     document.getElementById('thumb').src = data.thumbnail;
                     document.getElementById('judul').innerText = data.title;
-                    document.getElementById('linkAsli').href = data.direct_url;
+                    
+                    data.downloads.forEach(dl => {
+                        const isAudio = dl.type === 'audio';
+                        const btnEl = document.createElement('button');
+                        
+                        const colorClass = isAudio ? "bg-green-600 hover:bg-green-500" : "bg-blue-600 hover:bg-blue-500";
+                        btnEl.className = `block px-4 py-3 ${colorClass} text-white text-sm font-bold rounded shadow-md w-full text-center transition`;
+                        
+                        const icon = isAudio ? "🎵 " : "🎥 ";
+                        btnEl.innerText = icon + dl.name;
+                        
+                        // Eksekusi Pemicu Download Langsung
+                        btnEl.onclick = function() {
+                             document.getElementById('statusWait').innerText = "Server sedang meracik file, tunggu pop-up download (jangan tutup layar)...";
+                             btnEl.innerText = "Sedang Mengunduh ⏳";
+                             btnEl.classList.add("opacity-50", "animate-pulse", "pointer-events-none");
+                             
+                             // Arahkan browser langsung ke API (FastAPI FileResponse akan memaksa pop-up download)
+                             window.location.href = dl.link;
+                             
+                             // Kembalikan tombol ke normal setelah 7 detik
+                             setTimeout(() => {
+                                 btnEl.innerText = icon + dl.name;
+                                 btnEl.classList.remove("opacity-50", "animate-pulse", "pointer-events-none");
+                                 document.getElementById('statusWait').innerText = "";
+                             }, 7000);
+                        };
+                        
+                        btnContainer.appendChild(btnEl);
+                    });
+
                     document.getElementById('hasil').classList.remove("hidden");
                 } else {
-                    alert("Gagal mengambil video. Pastikan link bersifat publik (tidak diprivat).");
+                    alert(data.detail || "Gagal mengambil video.");
                 }
             } catch(e) {
-                alert("Terjadi kesalahan sistem atau format video tidak didukung.");
+                alert("Terjadi kesalahan sistem.");
             }
             
-            btn.innerText = "Dapatkan Video";
-            btn.classList.remove("opacity-50");
+            btn.innerText = "Cari Video";
+            btn.classList.remove("opacity-50", "pointer-events-none");
         }
     </script>
 </body>
